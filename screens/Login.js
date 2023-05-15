@@ -3,53 +3,46 @@ import {
   Text,
   View,
   StyleSheet,
-  FlatList,
-  SafeAreaView,
-  Image,
-  Platform,
   TextInput,
-  TouchableHighlight,
   Button,
-  Pressable,
-  DatePickerIOS
+  Pressable
 } from 'react-native';
 
 import { COLORS } from '../utils/constants';
+import { AuthContext } from '../context/authContext';
+import { HTTP_METHODS, httpCall } from '../services/httpService';
 
-export default function AddCustomer() {
+export default function Login() {
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const { signIn } = React.useContext(AuthContext).authContext;
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.formHeading}>Enter Customer Details</Text>
+      <View style={{marginTop: '25%'}}>
+        <Text style={styles.formHeading}>Enter Credentials</Text>
         <TextInput
           placeholderTextColor={COLORS.TEXT_LIGHT}
           style={styles.formInput}
-          placeholder="Customer Name"
+          value={email}
+          secureTextEntry={false}
+          onChangeText={setEmail}
+          placeholder="Email"
         />
         <TextInput
           placeholderTextColor={COLORS.TEXT_LIGHT}
-          inputMode='numeric'
-          keyboardType='numeric'
+          inputMode='text'
+          value={password}
+          secureTextEntry={true}
+          onChangeText={setPassword}
           style={styles.formInput}
-          placeholder="Bill Amount"
-        />
-        <TextInput
-          placeholderTextColor={COLORS.TEXT_LIGHT}
-          style={styles.formInput}
-          placeholder="Enter Date"
-        />
-        <TextInput
-          inputMode='numeric'
-          keyboardType='number-pad'
-          placeholderTextColor={COLORS.TEXT_LIGHT}
-          style={styles.formInput}
-          placeholder="Mobile Number"
+          placeholder="Password"
         />
       </View>
-      <Pressable>
+      {/* <Button title="Sign in" onPress={() => signIn({email, password})} /> */}
+      <Pressable onPress={() => signIn({email, password})}>
         <View style={styles.button}>
           <Text style={{ color: '#fff', textAlign: 'center', fontSize: 16 }}>
-            Add Customer
+            Submit
           </Text>
         </View>
       </Pressable>
@@ -76,6 +69,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   button: {
+    marginBottom: 350,
     padding: 16,
     backgroundColor: COLORS.PRIMARY,
     borderRadius: 15,

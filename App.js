@@ -10,13 +10,16 @@ import Customer from './screens/Customer';
 import { Card } from 'react-native-paper';
 
 import BottomNavigation from './navigations/BottomNavigation';
+import { AuthContext, AuthProvider } from './context/authContext';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <NavigationContainer>
-      <BottomNavigation />
-    </NavigationContainer>
+    <AuthProvider value={AuthContext}>
+      <NavigationContainer>
+        <BottomNavigation />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }
 

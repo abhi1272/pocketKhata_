@@ -15,7 +15,8 @@ const TAB_BAR_ICONS = {
   Dashboard: 'home',
   Customer: 'people',
   Bill: 'book',
-  Payment: 'card'
+  Payment: 'card',
+  Logout: 'logout'
 }
 const TAB_COLORS = {
   Dashboard: COLORS.PRIMARY,
@@ -25,18 +26,17 @@ const TAB_COLORS = {
 }
 
 import {COLORS} from '../utils/constants'
+import { AuthContext } from '../context/authContext';
 
 export default function BottomNavigation() {
   return (
     <Tab.Navigator
     screenOptions={({ route }) => ({
           headerShown: true,
-          headerTintColor:'#ffffff',
           headerStyle:{
              backgroundColor: TAB_COLORS[route.name],
             borderBottomWidth:0,
             borderColor:TAB_COLORS[route.name],
-            color:'#ffffff',
             shadowColor: 'transparent'
           },
           tabBarIcon: ({ focused, color, size }) => {
@@ -59,7 +59,6 @@ export default function BottomNavigation() {
             backgroundColor: COLORS.SECONDARY,
             borderBottomWidth:0,
             borderColor:COLORS.SECONDARY,
-            color:'#ffffff',
             shadowColor: 'transparent'
           }}}
       component={CustomerNavigation} />

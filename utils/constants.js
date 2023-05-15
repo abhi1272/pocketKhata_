@@ -1,3 +1,37 @@
+export let TITLE = 'pocketkhata';
+
+export const BACKEND_URL_LOCAL = 'http://localhost:4000/api/v1/';
+export const BACKEND_URL_PROD = 'https://om-agency-bk.vercel.app/api/v1/';
+
+export const RANGES = [
+  {
+    value: [new Date(), new Date()],
+    label: 'Today'
+  },
+  {
+    value: [new Date(new Date().setDate(new Date().getDate() - 1)), new Date()],
+    label: 'Yesterday'
+  },
+  {
+    value: [new Date(new Date().setDate(new Date().getDate() - 7)), new Date()],
+    label: 'Last 7 Days'
+  },
+  {
+    value: [new Date(new Date().setDate(new Date().getDate() - 30)), new Date()],
+    label: 'Last 30 Days'
+  },
+  {
+    value: [new Date(new Date().getFullYear(), new Date().getMonth(), 1), new Date()],
+    label: 'This Month'
+  },
+  {
+    value: [
+      new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1),
+      new Date(new Date().getFullYear(), new Date().getMonth(), 0)
+    ],
+    label: 'Last Month'
+  }
+];
 
 
 export const COLORS = {

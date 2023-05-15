@@ -4,66 +4,46 @@ import {
   View,
   StyleSheet,
   FlatList,
-  SafeAreaView,
-  Image,
-  Platform,
   TextInput,
   TouchableHighlight,
-  Modal,
+  Button
 } from 'react-native';
 
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 import CustomerItem from '../components/CustomerItem';
 import CustomerSummary from '../components/CustomerSummary';
 import AddCustomer from './AddCustomer';
-import globalStyles from '../utils/globalStyles';
 
 import { Avatar } from 'react-native-paper';
 
 import { COLORS } from '../utils/constants';
 
-import { getCustomer } from '../services/customerService';
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Vishal Shrivastava',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    title: 'Abhishek Kumar',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    title: 'Vicky S',
-  },
-];
+import { HTTP_METHODS, httpCall } from '../services/httpService';
+import { AuthContext } from '../context/authContext';
 
 export default function Customer({ navigation }) {
   const [totalCustomer, setTotalCustomer] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [customerList, setCustomerList] = useState([]);
-  const [openCustomerModal, setOpenCustomerModal] = useState(false);
   useEffect(() => {
-    getCustomer()
-      .then((response) => response.json())
+    httpCall(HTTP_METHODS.GET, 'customer')
       .then((data) => {
         setTotalCustomer(data.total);
         setTotalAmount(data.totalAmount);
         setCustomerList(data.data);
       });
   }, []);
+  const { signOut } = React.useContext(AuthContext).authContext
   return (
     <View style={{ flex: 1 }}>
       <CustomerSummary
         customerCount={totalCustomer}
         totalAmount={totalAmount}
       />
+      <Button title="logout" onPress={signOut} />
       <View
         style={{
           flex: 1,
-          backgroundColor: '#ffffff',
           paddingHorizontal: 0,
         }}>
         <TextInput
@@ -113,6 +93,5 @@ const styles = StyleSheet.create({
     right: 10,
     backgroundColor: COLORS.PRIMARY,
     borderRadius: 25,
-    color: '#ffffff',
   },
 });

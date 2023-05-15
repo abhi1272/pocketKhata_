@@ -4,13 +4,12 @@ import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-paper';
 
 import { COLORS } from '../utils/constants';
-import moment from 'moment';
+import { formatCurrency, formatDate } from '../utils/helperFuctions';
 
 export default function CustomerItem({ customer, navigation }) {
   const getCustomerDetail = () => {
     navigation.navigate('Customer Detail')
   };
-  console.log(customer);
   return (
     <TouchableOpacity onPress={getCustomerDetail}>
       <View style={styles.container}>
@@ -27,10 +26,10 @@ export default function CustomerItem({ customer, navigation }) {
           </View>
           <View>
             <Text style={{ ...styles.heading, color: COLORS.PRIMARY2 }}>
-              {customer.totalBillAmount}
+              {formatCurrency(customer.totalBillAmount)}
             </Text>
             <Text style={styles.subHeading}>
-              {moment(customer.updatedAt).format('L')}
+              {formatDate(customer.updatedAt)}
             </Text>
           </View>
         </View>
