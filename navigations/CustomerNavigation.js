@@ -14,6 +14,7 @@ import CustomerDetail from '../screens/CustomerDetail';
 
 import { COLORS } from '../utils/constants';
 import { AuthContext, AuthProvider } from '../context/authContext';
+import Company from '../screens/Company';
 export default function CustomerNavigation() {
   function SplashScreen() {
     return (
@@ -41,6 +42,7 @@ export default function CustomerNavigation() {
         // User is signed in
         <>
           <Stack.Screen name="Customer" component={Customer} />
+          <Stack.Screen name="Company" component={Company} />
           <Stack.Screen name="AddCustomer" component={AddCustomer} />
           <Stack.Screen name="CustomerDetail" component={CustomerDetail} />
         </>

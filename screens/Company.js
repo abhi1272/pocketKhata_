@@ -21,15 +21,16 @@ import { COLORS } from '../utils/constants';
 import { HTTP_METHODS, httpCall } from '../services/httpService';
 import { AuthContext } from '../context/authContext';
 
-export default function Customer({ navigation }) {
+export default function Company({ navigation }) {
   const [totalCustomer, setTotalCustomer] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [customerList, setCustomerList] = useState([]);
   useEffect(() => {
-    httpCall(HTTP_METHODS.GET, 'customer')
+    httpCall(HTTP_METHODS.GET, 'company')
       .then((data) => {
         setTotalCustomer(data.total);
         setTotalAmount(data.totalAmount);
+        console.log(data.data[0])
         setCustomerList(data.data);
       });
   }, []);
@@ -39,7 +40,7 @@ export default function Customer({ navigation }) {
       <CustomerSummary
         customerCount={totalCustomer}
         totalAmount={totalAmount}
-        entity='Customer'
+        entity='Company'
       />
       <Button title="logout" onPress={signOut} />
       <View
@@ -61,10 +62,10 @@ export default function Customer({ navigation }) {
       </View>
       <TouchableHighlight
         onPress={() => {
-          navigation.navigate('Add Customer');
+          navigation.navigate('Add Company');
         }}>
         <View style={styles.button}>
-          <Text style={{ color: 'white' }}>Add Customer</Text>
+          <Text style={{ color: 'white' }}>Add Company</Text>
         </View>
       </TouchableHighlight>
     </View>

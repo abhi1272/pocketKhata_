@@ -16,17 +16,23 @@ const TAB_BAR_ICONS = {
   Customer: 'people',
   Bill: 'book',
   Payment: 'card',
+  Company: 'card',
+  Expense: 'card',
   Logout: 'logout'
 }
 const TAB_COLORS = {
   Dashboard: COLORS.PRIMARY,
   Customer: COLORS.SECONDARY,
   Bill: COLORS.PRIMARY2,
-  Payment: COLORS.SECONDARY2
+  Payment: COLORS.SECONDARY2,
+  Company: COLORS.SECONDARY2,
+  Expense: COLORS.SECONDARY2
 }
 
 import {COLORS} from '../utils/constants'
 import { AuthContext } from '../context/authContext';
+import Company from '../screens/Company';
+import Expense from '../screens/Expense';
 
 export default function BottomNavigation() {
   return (
@@ -62,7 +68,9 @@ export default function BottomNavigation() {
             shadowColor: 'transparent'
           }}}
       component={CustomerNavigation} />
-      <Tab.Screen name="Bill" component={Customer} />
+      {/* <Tab.Screen name="Bill" component={Customer} /> */}
+      <Tab.Screen name="Company" component={Company} />
+      <Tab.Screen name="Expense" component={Expense} />
       <Tab.Screen name="Payment" component={Customer} />
     </Tab.Navigator>
   );

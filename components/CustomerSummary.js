@@ -15,8 +15,9 @@ import globalStyles from '../utils/globalStyles';
 import { Avatar } from 'react-native-paper';
 
 import { COLORS } from '../utils/constants';
+import { formatCurrency } from '../utils/helperFuctions';
 
-export default function CustomerSummary({customerCount, totalAmount}) {
+export default function CustomerSummary({customerCount, totalAmount, entity}) {
   return (
     <View style={styles.container}>
       <View style={styles.summaryBox}>
@@ -26,12 +27,12 @@ export default function CustomerSummary({customerCount, totalAmount}) {
             borderRightWidth: 1,
             borderColor: '#D2CBCB',
           }}>
-          <Text style={styles.heading}>Total Customer</Text>
+          <Text style={styles.heading}>Total {entity}</Text>
           <Text style={styles.subHeading}>{customerCount}</Text>
         </View>
         <View style={styles.headContainer}>
           <Text style={styles.heading}>You will receive</Text>
-          <Text style={{...styles.subHeading,color:COLORS.PRIMARY2}}>{totalAmount}</Text>
+          <Text style={{...styles.subHeading,color:COLORS.PRIMARY2}}>{formatCurrency(totalAmount)}</Text>
         </View>
       </View>
     </View>

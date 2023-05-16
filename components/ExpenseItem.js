@@ -6,7 +6,7 @@ import { Avatar } from 'react-native-paper';
 import { COLORS } from '../utils/constants';
 import { formatCurrency, formatDate } from '../utils/helperFuctions';
 
-export default function CustomerItem({ customer, navigation }) {
+export default function ExpenseItem({ customer, navigation }) {
   const getCustomerDetail = () => {
     navigation.navigate('Customer Detail')
   };
@@ -15,21 +15,23 @@ export default function CustomerItem({ customer, navigation }) {
       <View style={styles.container}>
         <Avatar.Text
           size={36}
-          label={customer.name.substr(0, 1)}
+          label={customer.type.name.substr(0, 1)}
           color={COLORS.SECONDARY2}
           style={{ backgroundColor: COLORS.SECONDARY, marginRight: 12 }}
         />
         <View style={styles.box}>
-          <View style={{ width: 160 }}>
-            <Text style={styles.heading}>{customer.name}</Text>
-            <Text style={styles.subHeading}>{customer.area}</Text>
+          <View style={{ width: '35%' }}>
+            <Text style={styles.heading}>{customer.type.name}</Text>
+            <Text style={styles.subHeading}>{customer.notes}</Text>
           </View>
-          <View>
-            <Text style={{ ...styles.heading, color: COLORS.PRIMARY2 }}>
-              {formatCurrency(customer.totalBillAmount)}
+          <View style={{ width: '35%' }}>
+             <Text style={styles.subHeading}>
+              {formatDate(customer.date)}
             </Text>
-            <Text style={styles.subHeading}>
-              {formatDate(customer.updatedAt)}
+          </View>
+          <View style={{ width: '20%' }}>
+            <Text style={{ ...styles.heading, color: COLORS.PRIMARY2 }}>
+              {formatCurrency(customer.amount)}
             </Text>
           </View>
         </View>
@@ -55,10 +57,10 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   heading: {
-    fontSize: 12,
+    fontSize: 14,
     color: COLORS.TEXT_DARK,
     fontWeight: '600',
-    marginBottom: 0,
+    marginBottom: 6,
   },
-  subHeading: { fontSize: 10, color: COLORS.PRIMARY2 },
+  subHeading: { fontSize: 12, color: COLORS.TEXT_LIGHT },
 });
