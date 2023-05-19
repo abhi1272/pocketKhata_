@@ -4,6 +4,7 @@ import Constants from 'expo-constants';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NativeBaseProvider } from 'native-base';
 // You can import from local files
 import Customer from './screens/Customer';
 // or any pure javascript modules available in npm
@@ -15,11 +16,13 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <AuthProvider value={AuthContext}>
-      <NavigationContainer>
-        <BottomNavigation />
-      </NavigationContainer>
-    </AuthProvider>
+    <NativeBaseProvider>
+      <AuthProvider value={AuthContext}>
+        <NavigationContainer>
+          <BottomNavigation />
+        </NavigationContainer>
+      </AuthProvider>
+    </NativeBaseProvider>
   );
 }
 
