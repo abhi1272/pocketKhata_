@@ -59,6 +59,7 @@ export const AuthProvider = ({ children }) => {
     signIn: async (data) => {
       try {
         const response = await httpCall(HTTP_METHODS.POST, '/user/login', data);
+        console.log(response)
         await AsyncStorage.setItem('token', response.data.token);
 
         dispatch({ type: 'SIGN_IN', token: response.data.token });

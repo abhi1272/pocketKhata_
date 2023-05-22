@@ -1,83 +1,73 @@
+import { Box, FormControl, Input, Heading, Link, Button, HStack, VStack, Text, Center, Container } from "native-base";
 import * as React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  Button,
-  Pressable
-} from 'react-native';
-
-import { COLORS } from '../utils/constants';
 import { AuthContext } from '../context/authContext';
-import { HTTP_METHODS, httpCall } from '../services/httpService';
-
 export default function Login() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const { signIn } = React.useContext(AuthContext).authContext;
-  return (
-    <View style={styles.container}>
-      <View style={{marginTop: '25%'}}>
-        <Text style={styles.formHeading}>Enter Credentials</Text>
-        <TextInput
-          placeholderTextColor={COLORS.TEXT_LIGHT}
-          style={styles.formInput}
-          value={email}
-          secureTextEntry={false}
-          onChangeText={setEmail}
-          placeholder="Email"
-        />
-        <TextInput
-          placeholderTextColor={COLORS.TEXT_LIGHT}
-          inputMode='text'
-          value={password}
-          secureTextEntry={true}
-          onChangeText={setPassword}
-          style={styles.formInput}
-          placeholder="Password"
-        />
-      </View>
-      {/* <Button title="Sign in" onPress={() => signIn({email, password})} /> */}
-      <Pressable onPress={() => signIn({email, password})}>
-        <View style={styles.button}>
-          <Text style={{ color: '#fff', textAlign: 'center', fontSize: 16 }}>
-            Submit
-          </Text>
-        </View>
-      </Pressable>
-    </View>
-  );
-}
+  return <Center w="100%">
+  <Box safeArea py="8" w="90%" maxW="290">
+    <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
+    color: "warmGray.50"
+  }}>
+      Welcome
+    </Heading>
+    <Heading mt="1" _dark={{
+    color: "warmGray.200"
+  }} color="coolGray.600" fontWeight="medium" size="xs">
+      Sign in to continue!
+    </Heading>
+    <VStack space={3} mt="5">
+      <FormControl isRequired>
+        <Input 
+        size="2xl"
+        p={3} 
+        mb={3}
+        value={email}
+        placeholder="Email"
+          onChangeText={setEmail}/>
+      </FormControl>
+      <FormControl isRequired>
+        <Input 
+        size="2xl" 
+        p={3}
+        value={password}
+        placeholder="Password"
+          onChangeText={setPassword} 
+          type="password" />
+        <Link _text={{
+        fontSize: "xs",
+        fontWeight: "500",
+        color: "indigo.500"
+      }} alignSelf="flex-end" mt="1">
+          Forget Password?
+        </Link>
+      </FormControl>
+      <Button 
+      size="lg"
+      onPress={() => signIn({email, password})}
+              mt="2" colorScheme="indigo">
+        Sign in
+      </Button>
+      <HStack mt="6" justifyContent="center">
+        <Text fontSize="sm" color="coolGray.600" _dark={{
+        color: "warmGray.200"
+      }}>
+          I'm a new user.{" "}
+        </Text>
+        <Link _text={{
+        color: "indigo.500",
+        fontWeight: "medium",
+        fontSize: "sm"
+      }} href="#">
+          Sign Up
+        </Link>
+      </HStack>
+    </VStack>
+  </Box>
+</Center>
+};
+/*
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  formInput: {
-    height: 60,
-    paddingHorizontal: 8,
-    paddingVertical: 16,
-    fontSize: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#F1F1FA',
-    borderRadius: 10,
-  },
-  button: {
-    marginBottom: 350,
-    padding: 16,
-    backgroundColor: COLORS.PRIMARY,
-    borderRadius: 15,
-  },
-  formHeading: {
-    marginVertical: 16,
-    color: COLORS.TEXT_LIGHT,
-    fontSize: 18,
-    textAlign: 'center',
-  },
-});
+
+*/
