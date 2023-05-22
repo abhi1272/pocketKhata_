@@ -1,89 +1,69 @@
-import * as React from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  Image,
-  Platform,
-  TextInput,
-  TouchableHighlight,
-  Button,
-  Pressable,
-  DatePickerIOS
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+// import {
+//   Text,
+//   View,
+//   StyleSheet,
+//   FlatList,
+//   SafeAreaView,
+//   Image,
+//   Platform,
+//   TextInput,
+//   TouchableHighlight,
+//   Button,
+//   Pressable,
+//   DatePickerIOS
+// } from 'react-native';
 
 import { COLORS } from '../utils/constants';
+import { Box, Button, Container, FormControl, Input, Select, Text, VStack } from 'native-base';
+import { addCustomer, getPlaces } from '../services/customerService';
 
 export default function AddCustomer() {
-  return (
-    <View style={styles.container}>
-      <View>
-        <Text style={styles.formHeading}>Enter Customer Details</Text>
-        <TextInput
-          placeholderTextColor={COLORS.TEXT_LIGHT}
-          style={styles.formInput}
-          placeholder="Customer Name"
-        />
-        <TextInput
-          placeholderTextColor={COLORS.TEXT_LIGHT}
-          inputMode='numeric'
-          keyboardType='numeric'
-          style={styles.formInput}
-          placeholder="Bill Amount"
-        />
-        <TextInput
-          placeholderTextColor={COLORS.TEXT_LIGHT}
-          style={styles.formInput}
-          placeholder="Enter Date"
-        />
-        <TextInput
-          inputMode='numeric'
-          keyboardType='number-pad'
-          placeholderTextColor={COLORS.TEXT_LIGHT}
-          style={styles.formInput}
-          placeholder="Mobile Number"
-        />
-      </View>
-      <Pressable>
-        <View style={styles.button}>
-          <Text style={{ color: '#fff', textAlign: 'center', fontSize: 16 }}>
-            Add Customer
-          </Text>
-        </View>
-      </Pressable>
-    </View>
-  );
-}
+  const [places, setPlaces] = React.useState([])
+  const [name, setName] = React.useState("");
+  const [address, setAddress] = React.useState("")
+  const [customerPlace, setCustomerPlace] = React.useState("");
+  const [phone, setPhone] = React.useState("")
+  useEffect(() => {
+    getPlaces().then(response => {
+      if (response.status === 200) {
+        setPlaces(response.data)
+      }
+    })
+  })
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  formInput: {
-    height: 60,
-    paddingHorizontal: 8,
-    paddingVertical: 16,
-    fontSize: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#F1F1FA',
-    borderRadius: 10,
-  },
-  button: {
-    padding: 16,
-    backgroundColor: COLORS.PRIMARY,
-    borderRadius: 15,
-  },
-  formHeading: {
-    marginVertical: 16,
-    color: COLORS.TEXT_LIGHT,
-    fontSize: 18,
-    textAlign: 'center',
-  },
-});
+  const handleSubmit = () => {
+    const placeIndex = places.findIndex(data => data.name === customerPlace)
+
+    const customerObj = {
+      area: address,
+      name,
+      phoneNumber: phone,
+      place: places[placeIndex]
+    }
+    addCustomer(customerObj).then(response => console.log(response))
+  }
+  return <Box bg="white" flex="1" safeAreaTop paddingX={5}>
+    <Text fontSize="xl" justifyContent="center" paddingBottom={5} textAlign={'center'}>Enter Customer Details</Text>
+    <VStack space={5}>
+      <FormControl isRequired>
+        <Input size="xl" pt={4} pb={4} placeholder='Customer Name' onChangeText={value => setName(value)} />
+        <FormControl.ErrorMessage>Name is Required</FormControl.ErrorMessage>
+      </FormControl>
+      <FormControl isRequired>
+        <Input size="xl" pt={4} pb={4} placeholder='Address' onChangeText={value => setAddress(value)} />
+      </FormControl>
+      <Select pt={4} pb={4} size={'xl'} selectedValue={customerPlace} accessibilityLabel="Choose Place" placeholder="Choose Service" _selectedItem={{
+        bg: "teal.600",
+      }} mt={1} onValueChange={itemValue => setCustomerPlace(itemValue)}>
+        {places.map(data => (
+          <Select.Item label={data.name} value={data.name} />
+        ))}
+      </Select>
+      <FormControl isRequired>
+        <Input size="xl" pt={4} pb={4} placeholder='Mobile Number' keyboardType='numeric' onChangeText={value => setPhone(value)} />
+      </FormControl>
+      <Button size={'lg'} p={5} onPress={handleSubmit}>Add Customer</Button>
+    </VStack>
+  </Box>;
+}

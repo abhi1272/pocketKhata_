@@ -43,7 +43,7 @@ export default function CustomerNavigation() {
         <>
           <Stack.Screen name="Customer" component={Customer} />
           <Stack.Screen name="Company" component={Company} />
-          <Stack.Screen name="AddCustomer" component={AddCustomer} />
+          <Stack.Screen name="Add Customer" component={AddCustomer} />
           <Stack.Screen name="CustomerDetail" component={CustomerDetail} />
         </>
       )}
