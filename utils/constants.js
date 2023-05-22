@@ -49,5 +49,7 @@ export const COLORS = {
 }
 
 export const ENDPOINT = {
-  GET_CUSTOMER: '/customer'
+  GET_CUSTOMER: '/customer',
+  ADD_CUSTOMER:'customer/add',
+  GET_PLACES: '/place',
 }

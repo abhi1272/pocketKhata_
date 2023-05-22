@@ -25,6 +25,7 @@ export default function Customer({ navigation }) {
   useEffect(() => {
     httpCall(HTTP_METHODS.GET, 'customer')
       .then((data) => {
+        console.log(data)
         setTotalCustomer(data.total);
         setTotalAmount(data.totalAmount);
         setCustomerList(data.data);
