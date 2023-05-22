@@ -9,8 +9,6 @@ import {
   Platform,
 } from 'react-native';
 
-import Ionicons from '@expo/vector-icons/Ionicons';
-
 import globalStyles from '../utils/globalStyles';
 import { Avatar } from 'react-native-paper';
 

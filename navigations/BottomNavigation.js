@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from '@expo/vector-icons/Ionicons';
 //Custom Imports
 import Customer from '../screens/Customer'
 import AddCustomer from '../screens/AddCustomer';
@@ -45,9 +44,9 @@ export default function BottomNavigation() {
             borderColor:TAB_COLORS[route.name],
             shadowColor: 'transparent'
           },
-          tabBarIcon: ({ focused, color, size }) => {
-            return <Ionicons name={TAB_BAR_ICONS[route.name]} color={color} size={size} />
-          },
+          // tabBarIcon: ({ focused, color, size }) => {
+          //   return <Ionicons name={TAB_BAR_ICONS[route.name]} color={color} size={size} />
+          // },
           tabBarActiveTintColor: COLORS.PRIMARY2,
           tabBarInactiveTintColor: '#C6C6C6',
           tabBarShowLabel: true,
