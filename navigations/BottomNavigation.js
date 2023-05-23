@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from '@expo/vector-icons/Ionicons';
 //Custom Imports
 import Customer from '../screens/Customer'
 import AddCustomer from '../screens/AddCustomer';
@@ -15,33 +14,39 @@ const TAB_BAR_ICONS = {
   Dashboard: 'home',
   Customer: 'people',
   Bill: 'book',
-  Payment: 'card'
+  Payment: 'card',
+  Company: 'card',
+  Expense: 'card',
+  Logout: 'logout'
 }
 const TAB_COLORS = {
   Dashboard: COLORS.PRIMARY,
   Customer: COLORS.SECONDARY,
   Bill: COLORS.PRIMARY2,
-  Payment: COLORS.SECONDARY2
+  Payment: COLORS.SECONDARY2,
+  Company: COLORS.SECONDARY2,
+  Expense: COLORS.SECONDARY2
 }
 
 import {COLORS} from '../utils/constants'
+import { AuthContext } from '../context/authContext';
+import Company from '../screens/Company';
+import Expense from '../screens/Expense';
 
 export default function BottomNavigation() {
   return (
     <Tab.Navigator
     screenOptions={({ route }) => ({
           headerShown: true,
-          headerTintColor:'#ffffff',
           headerStyle:{
              backgroundColor: TAB_COLORS[route.name],
             borderBottomWidth:0,
             borderColor:TAB_COLORS[route.name],
-            color:'#ffffff',
             shadowColor: 'transparent'
           },
-          tabBarIcon: ({ focused, color, size }) => {
-            return <Ionicons name={TAB_BAR_ICONS[route.name]} color={color} size={size} />
-          },
+          // tabBarIcon: ({ focused, color, size }) => {
+          //   return <Ionicons name={TAB_BAR_ICONS[route.name]} color={color} size={size} />
+          // },
           tabBarActiveTintColor: COLORS.PRIMARY2,
           tabBarInactiveTintColor: '#C6C6C6',
           tabBarShowLabel: true,
@@ -59,11 +64,12 @@ export default function BottomNavigation() {
             backgroundColor: COLORS.SECONDARY,
             borderBottomWidth:0,
             borderColor:COLORS.SECONDARY,
-            color:'#ffffff',
             shadowColor: 'transparent'
           }}}
       component={CustomerNavigation} />
-      <Tab.Screen name="Bill" component={Customer} />
+      {/* <Tab.Screen name="Bill" component={Customer} /> */}
+      <Tab.Screen name="Company" component={Company} />
+      <Tab.Screen name="Expense" component={Expense} />
       <Tab.Screen name="Payment" component={Customer} />
     </Tab.Navigator>
   );

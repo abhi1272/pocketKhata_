@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text } from "native-base";
 import {
+  Text,
   View,
   StyleSheet,
+  FlatList,
   TextInput,
   TouchableHighlight,
   Button
@@ -12,22 +13,24 @@ import {
 import CustomerItem from '../components/CustomerItem';
 import CustomerSummary from '../components/CustomerSummary';
 import AddCustomer from './AddCustomer';
+
+import { Avatar } from 'react-native-paper';
+
 import { COLORS } from '../utils/constants';
 
 import { HTTP_METHODS, httpCall } from '../services/httpService';
 import { AuthContext } from '../context/authContext';
-import { formatDate } from '../utils/helperFuctions';
 
-export default function Customer({ navigation }) {
+export default function Company({ navigation }) {
   const [totalCustomer, setTotalCustomer] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const [customerList, setCustomerList] = useState([]);
   useEffect(() => {
-    httpCall(HTTP_METHODS.GET, 'customer')
+    httpCall(HTTP_METHODS.GET, 'company')
       .then((data) => {
-        console.log(data)
         setTotalCustomer(data.total);
         setTotalAmount(data.totalAmount);
+        console.log(data.data[0])
         setCustomerList(data.data);
       });
   }, []);
@@ -37,41 +40,32 @@ export default function Customer({ navigation }) {
       <CustomerSummary
         customerCount={totalCustomer}
         totalAmount={totalAmount}
-        entity="Customer"
+        entity='Company'
       />
       <Button title="logout" onPress={signOut} />
       <View
         style={{
           flex: 1,
           paddingHorizontal: 0,
-        }}
-      >
+        }}>
         <TextInput
           placeholderTextColor={COLORS.TEXT_LIGHT}
           style={styles.searchInput}
           placeholder="Search Customer"
         />
-        {/* <FlatList
+        <FlatList
           data={customerList}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           renderItem={({ item }) => <CustomerItem customer={item} navigation={navigation}/>}
           keyExtractor={(item) => item.uuid}
-        /> */}
-        <FlatList
-          data={customerList}
-          renderItem={({ item }) => (
-            <CustomerItem customer={item} navigation={navigation} />
-          )}
-          keyExtractor={(item) => item.id}
         />
       </View>
       <TouchableHighlight
         onPress={() => {
-          navigation.navigate("Add Customer");
-        }}
-      >
+          navigation.navigate('Add Company');
+        }}>
         <View style={styles.button}>
-          <Text style={{ color: "white" }}>Add Customer</Text>
+          <Text style={{ color: 'white' }}>Add Company</Text>
         </View>
       </TouchableHighlight>
     </View>
